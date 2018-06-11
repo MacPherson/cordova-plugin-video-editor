@@ -338,6 +338,11 @@
     AVURLAsset *avAsset = [AVURLAsset URLAssetWithURL:fileURL options:nil];
 
     NSArray *tracks = [avAsset tracksWithMediaType:AVMediaTypeVideo];
+
+    if ([tracks count] == 0) {
+        return [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
+    }
+
     AVAssetTrack *track = [tracks objectAtIndex:0];
     CGSize mediaSize = track.naturalSize;
 
